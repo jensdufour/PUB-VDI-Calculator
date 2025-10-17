@@ -116,8 +116,8 @@ function calculateFrontlineDedicated() {
     const monthlyLicenseCost = licensesNeeded * monthlyPerLicense;
     const yearlyTotal = monthlyLicenseCost * 12;
     
-    // Per user cost calculation (for display purposes)
-    const monthlyPerUser = monthlyLicenseCost / state.totalUsers;
+    // Per user cost calculation (for display purposes) - divide by total users to show cost spread across all users
+    const monthlyPerUser = state.totalUsers > 0 ? monthlyLicenseCost / state.totalUsers : 0;
     const annualPerUser = monthlyPerUser * 12;
     
     return {
@@ -214,33 +214,29 @@ function updateDisplay() {
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     // Total Users input
+    document.getElementById('total-users').addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        state.totalUsers = (value > 0) ? value : 1;
+        updateDisplay();
+    });
+    
     document.getElementById('total-users').addEventListener('change', (e) => {
         const value = parseInt(e.target.value);
         state.totalUsers = (value > 0) ? value : 1;
         updateDisplay();
     });
     
-    document.getElementById('total-users').addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            const value = parseInt(e.target.value);
-            state.totalUsers = (value > 0) ? value : 1;
-            updateDisplay();
-        }
-    });
-    
     // Peak Concurrent input
-    document.getElementById('peak-concurrent').addEventListener('change', (e) => {
+    document.getElementById('peak-concurrent').addEventListener('input', (e) => {
         const value = parseInt(e.target.value);
         state.peakConcurrent = (value > 0) ? value : 1;
         updateDisplay();
     });
     
-    document.getElementById('peak-concurrent').addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            const value = parseInt(e.target.value);
-            state.peakConcurrent = (value > 0) ? value : 1;
-            updateDisplay();
-        }
+    document.getElementById('peak-concurrent').addEventListener('change', (e) => {
+        const value = parseInt(e.target.value);
+        state.peakConcurrent = (value > 0) ? value : 1;
+        updateDisplay();
     });
     
     // SKU Selector
