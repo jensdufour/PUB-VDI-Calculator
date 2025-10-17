@@ -33,16 +33,16 @@ const PRICING_DATA = {
     // Frontline Shared: Per concurrent device per month (non-persistent, shared)
     // Price is per device in use at the same time, not per named user
     frontlineShared: [
-        { label: '2vCPU / 8GB / 128GB', monthlyPerDevice: 21 },
-        { label: '2vCPU / 8GB / 256GB', monthlyPerDevice: 25 },
-        { label: '4vCPU / 16GB / 128GB', monthlyPerDevice: 33 },
-        { label: '4vCPU / 16GB / 256GB', monthlyPerDevice: 38 },
-        { label: '4vCPU / 16GB / 512GB', monthlyPerDevice: 51 },
-        { label: '8vCPU / 32GB / 128GB', monthlyPerDevice: 62 },
-        { label: '8vCPU / 32GB / 256GB', monthlyPerDevice: 66 },
-        { label: '8vCPU / 32GB / 512GB', monthlyPerDevice: 79 },
-        { label: '16vCPU / 64GB / 512GB', monthlyPerDevice: 139 },
-        { label: '16vCPU / 64GB / 1TB', monthlyPerDevice: 158 }
+        { label: '2vCPU / 8GB / 128GB', monthlyPerDevice: 62 },
+        { label: '2vCPU / 8GB / 256GB', monthlyPerDevice: 75 },
+        { label: '4vCPU / 16GB / 128GB', monthlyPerDevice: 99 },
+        { label: '4vCPU / 16GB / 256GB', monthlyPerDevice: 113 },
+        { label: '4vCPU / 16GB / 512GB', monthlyPerDevice: 152 },
+        { label: '8vCPU / 32GB / 128GB', monthlyPerDevice: 185 },
+        { label: '8vCPU / 32GB / 256GB', monthlyPerDevice: 198 },
+        { label: '8vCPU / 32GB / 512GB', monthlyPerDevice: 237 },
+        { label: '16vCPU / 64GB / 512GB', monthlyPerDevice: 416 },
+        { label: '16vCPU / 64GB / 1TB', monthlyPerDevice: 473 }
     ]
 };
 
@@ -186,7 +186,8 @@ function updateDisplay() {
     
     // Update Frontline Shared display
     document.getElementById('frontline-shared-yearly').textContent = formatCurrency(frontlineShared.yearly);
-    document.getElementById('frontline-shared-monthly-user').textContent = formatCurrency(frontlineShared.monthlyPerDevice);
+    const frontlineSharedMonthlyPerUser = frontlineShared.monthly / state.totalUsers;
+    document.getElementById('frontline-shared-monthly-user').textContent = formatCurrencyDecimals(frontlineSharedMonthlyPerUser, 2);
     document.getElementById('frontline-shared-concurrent').textContent = frontlineShared.devicesNeeded;
     
     // Calculate and display Frontline Shared savings
