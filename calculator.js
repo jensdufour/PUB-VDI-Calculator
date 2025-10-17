@@ -17,18 +17,18 @@ const PRICING_DATA = {
         { label: '16vCPU / 64GB / 512GB', monthlyPerUser: 277 },
         { label: '16vCPU / 64GB / 1TB', monthlyPerUser: 315 }
     ],
-    // Frontline Dedicated: Per-user pricing, but 3 users per license (1 concurrent connection per license)
+    // Frontline Dedicated: Per-license pricing, each license supports up to 3 users
     frontlineDedicated: [
-        { label: '2vCPU / 8GB / 128GB', monthlyPerUser: 21 },
-        { label: '2vCPU / 8GB / 256GB', monthlyPerUser: 25 },
-        { label: '4vCPU / 16GB / 128GB', monthlyPerUser: 33 },
-        { label: '4vCPU / 16GB / 256GB', monthlyPerUser: 38 },
-        { label: '4vCPU / 16GB / 512GB', monthlyPerUser: 51 },
-        { label: '8vCPU / 32GB / 128GB', monthlyPerUser: 62 },
-        { label: '8vCPU / 32GB / 256GB', monthlyPerUser: 66 },
-        { label: '8vCPU / 32GB / 512GB', monthlyPerUser: 79 },
-        { label: '16vCPU / 64GB / 512GB', monthlyPerUser: 139 },
-        { label: '16vCPU / 64GB / 1TB', monthlyPerUser: 158 }
+        { label: '2vCPU / 8GB / 128GB', monthlyPerLicense: 62 },
+        { label: '2vCPU / 8GB / 256GB', monthlyPerLicense: 75 },
+        { label: '4vCPU / 16GB / 128GB', monthlyPerLicense: 99 },
+        { label: '4vCPU / 16GB / 256GB', monthlyPerLicense: 113 },
+        { label: '4vCPU / 16GB / 512GB', monthlyPerLicense: 152 },
+        { label: '8vCPU / 32GB / 128GB', monthlyPerLicense: 185 },
+        { label: '8vCPU / 32GB / 256GB', monthlyPerLicense: 198 },
+        { label: '8vCPU / 32GB / 512GB', monthlyPerLicense: 237 },
+        { label: '16vCPU / 64GB / 512GB', monthlyPerLicense: 416},
+        { label: '16vCPU / 64GB / 1TB', monthlyPerLicense: 473 }
     ],
     // Frontline Shared: Per concurrent device per month (non-persistent, shared)
     // Price is per device in use at the same time, not per named user
@@ -48,8 +48,8 @@ const PRICING_DATA = {
 
 // Application State
 const state = {
-    totalUsers: 100,
-    peakConcurrent: 60,
+    totalUsers: 1,
+    peakConcurrent: 1,
     selectedSku: 0
 };
 
@@ -100,7 +100,7 @@ function calculateEnterprise() {
 // Must have enough licenses for BOTH all users AND peak concurrent connections
 function calculateFrontlineDedicated() {
     const sku = PRICING_DATA.frontlineDedicated[state.selectedSku];
-    const monthlyPerUser = sku.monthlyPerUser;
+    const monthlyPerLicense = sku.monthlyPerLicense;
     
     // Frontline Dedicated: Need enough licenses for both:
     // 1. All total users assigned to licenses (3 users per license)
@@ -113,15 +113,18 @@ function calculateFrontlineDedicated() {
     const concurrentCapacity = licensesNeeded * 1; // 1 concurrent per license
     
     // Total cost: cost per license × number of licenses needed
-    // (Each license covers 3 users and costs monthlyPerUser * 3 per month)
-    const monthlyLicenseCost = licensesNeeded * monthlyPerUser * 3;
+    const monthlyLicenseCost = licensesNeeded * monthlyPerLicense;
     const yearlyTotal = monthlyLicenseCost * 12;
+    
+    // Per user cost calculation (for display purposes)
+    const monthlyPerUser = monthlyLicenseCost / state.totalUsers;
+    const annualPerUser = monthlyPerUser * 12;
     
     return {
         yearly: yearlyTotal,
         monthly: monthlyLicenseCost,
         monthlyPerUser: monthlyPerUser,
-        annualPerUser: monthlyPerUser * 12,
+        annualPerUser: annualPerUser,
         licensesNeeded: licensesNeeded,
         concurrentCapacity: concurrentCapacity
     };
@@ -164,7 +167,7 @@ function updateDisplay() {
     
     // Update Frontline Dedicated display
     document.getElementById('frontline-dedicated-yearly').textContent = formatCurrency(frontlineDedicated.yearly);
-    document.getElementById('frontline-dedicated-monthly-pool').textContent = formatCurrency(frontlineDedicated.monthlyPerUser);
+    document.getElementById('frontline-dedicated-monthly-pool').textContent = formatCurrencyDecimals(frontlineDedicated.monthlyPerUser, 2);
     document.getElementById('frontline-dedicated-pools-needed').textContent = frontlineDedicated.licensesNeeded;
     
     // Calculate and display Frontline Dedicated savings
