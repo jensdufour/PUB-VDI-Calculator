@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 365 Cost Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Windows 365 Cost Calculator</h1>
+                <p class="subtitle">Quick Enterprise vs. Frontline Comparison</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Panel -->
+            <div class="input-section">
+                <h2>Enter Your Requirements</h2>
+                
+                <div class="input-group">
+                    <label for="total-users">Total Users</label>
+                    <input type="number" id="total-users" min="10" max="10000" value="100" step="10">
+                    <small>10 - 10,000 users</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="peak-concurrent">Peak Concurrent Connections</label>
+                    <input type="number" id="peak-concurrent" min="1" max="10000" value="60" step="1">
+                    <small>Actual simultaneous connections</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="sku-selector">Cloud PC Configuration</label>
+                    <select id="sku-selector">
+                        <option value="0">2vCPU / 8GB RAM / 128GB Storage</option>
+                        <option value="1">2vCPU / 8GB RAM / 256GB Storage</option>
+                        <option value="2">4vCPU / 16GB RAM / 128GB Storage</option>
+                        <option value="3">4vCPU / 16GB RAM / 256GB Storage</option>
+                        <option value="4">4vCPU / 16GB RAM / 512GB Storage</option>
+                        <option value="5">8vCPU / 32GB RAM / 128GB Storage</option>
+                        <option value="6">8vCPU / 32GB RAM / 256GB Storage</option>
+                        <option value="7">8vCPU / 32GB RAM / 512GB Storage</option>
+                        <option value="8">16vCPU / 64GB RAM / 512GB Storage</option>
+                        <option value="9">16vCPU / 64GB RAM / 1TB Storage</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Comparison Panel -->
+            <div class="comparison-section">
+                <div class="comparison-grid">
+                    <!-- Enterprise Column -->
+                    <div class="comparison-card enterprise">
+                        <h2>Windows 365 Enterprise</h2>
+                        <p class="model-desc">Per-User Licensing</p>
+                        
+                        <div class="cost-display">
+                            <div class="yearly-cost" id="enterprise-yearly">$0</div>
+                            <small class="cost-label">Per Year</small>
+                        </div>
+
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Monthly per User:</span>
+                                <span class="metric-value" id="enterprise-monthly-user">$0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Annual per User:</span>
+                                <span class="metric-value" id="enterprise-annual-user">$0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Peak Concurrent Cost:</span>
+                                <span class="metric-value" id="enterprise-concurrent-annual">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontline Dedicated Column -->
+                    <div class="comparison-card frontline-dedicated">
+                        <h2>Windows 365 Frontline Dedicated</h2>
+                        <p class="model-desc">1 License = 3 PCs / 1 Concurrent (Persistent)</p>
+                        
+                        <div class="cost-display">
+                            <div class="yearly-cost" id="frontline-dedicated-yearly">$0</div>
+                            <small class="cost-label">Per Year</small>
+                        </div>
+
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Monthly per User:</span>
+                                <span class="metric-value" id="frontline-dedicated-monthly-pool">$0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Licenses Needed:</span>
+                                <span class="metric-value" id="frontline-dedicated-pools-needed">0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Savings vs Enterprise:</span>
+                                <span class="metric-value savings" id="frontline-dedicated-savings">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontline Shared Column -->
+                    <div class="comparison-card frontline-shared">
+                        <h2>Windows 365 Frontline Shared</h2>
+                        <p class="model-desc">Concurrent Model (Non-Persistent)</p>
+                        
+                        <div class="cost-display">
+                            <div class="yearly-cost" id="frontline-shared-yearly">$0</div>
+                            <small class="cost-label">Per Year</small>
+                        </div>
+
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Monthly per User:</span>
+                                <span class="metric-value" id="frontline-shared-monthly-user">$0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Based on Peak Concurrent:</span>
+                                <span class="metric-value" id="frontline-shared-concurrent">0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Savings vs Enterprise:</span>
+                                <span class="metric-value savings" id="frontline-shared-savings">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>

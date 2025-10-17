@@ -1,0 +1,36 @@
+# OS and IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.env.local
+.env.*.local
+
+# Build artifacts and node modules
+node_modules/
+dist/
+build/
+.cache/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# Browser history
+.history/
+
+# Production
+.next/
+out/

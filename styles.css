@@ -1,0 +1,328 @@
+/* ============================================================================
+   Windows 365 Cost Calculator - Simplified Styles
+   ============================================================================ */
+
+:root {
+    --primary: #0078d4;
+    --primary-dark: #106ebe;
+    --bg: #ffffff;
+    --bg-alt: #f5f5f5;
+    --text: #1a1a1a;
+    --text-light: #666666;
+    --border: #e0e0e0;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Container */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, #1055a4 100%);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.header-content h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.header .subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    width: 100%;
+    flex: 1;
+}
+
+/* Input Section */
+.input-section {
+    background: var(--bg-alt);
+    padding: 25px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    height: fit-content;
+}
+
+.input-section h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    color: var(--text);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+}
+
+.input-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* Comparison Section */
+.comparison-section {
+    flex: 1;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.comparison-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.comparison-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.comparison-card h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.comparison-card.enterprise {
+    border-left: 5px solid #0078d4;
+}
+
+.comparison-card.frontline-dedicated {
+    border-left: 5px solid #107c10;
+}
+
+.comparison-card.frontline-shared {
+    border-left: 5px solid #ff8c00;
+}
+
+.model-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+/* Cost Display */
+.cost-display {
+    background: var(--bg-alt);
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.yearly-cost {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.enterprise .yearly-cost {
+    color: #0078d4;
+}
+
+.frontline-dedicated .yearly-cost {
+    color: #107c10;
+}
+
+.frontline-shared .yearly-cost {
+    color: #ff8c00;
+}
+
+.cost-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* Metrics */
+.metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metric {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg-alt);
+    border-radius: 4px;
+    align-items: center;
+}
+
+.metric-label {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.metric-value {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.metric-value.savings {
+    color: #107c10;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 22px;
+    }
+
+    .main-content {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+
+    .input-section {
+        padding: 20px;
+    }
+
+    .comparison-card {
+        padding: 20px;
+    }
+
+    .yearly-cost {
+        font-size: 28px;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 18px;
+    }
+
+    .header .subtitle {
+        font-size: 12px;
+    }
+
+    .main-content {
+        padding: 15px 10px;
+        gap: 15px;
+    }
+
+    .input-section {
+        padding: 15px;
+    }
+
+    .comparison-card {
+        padding: 15px;
+    }
+
+    .comparison-card h2 {
+        font-size: 16px;
+    }
+
+    .yearly-cost {
+        font-size: 24px;
+    }
+
+    .metric {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .metric-label {
+        font-size: 12px;
+    }
+
+    .metric-value {
+        font-size: 13px;
+    }
+}
